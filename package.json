@@ -1,0 +1,22 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/app.js",
+    "jest":"jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.13.0",
+    "mysql": "^2.18.1",
+    "koa-router": "^9.1.0"
+  },
+  "devDependencies": {
+    "jest": "^26.1.0"
+  }
+}
