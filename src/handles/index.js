@@ -2,10 +2,10 @@
  * @Author: bucai
  * @Date: 2020-07-09 21:14:37
  * @LastEditors: bucai
- * @LastEditTime: 2020-07-09 22:56:15
+ * @LastEditTime: 2020-07-10 09:36:06
  * @Description: 
  */
-// const db = require('../lib/db');
+const db = require('../lib/db');
 const { require_context } = require('../utils');
 const temp_modules = require_context(__dirname, /index\.js/);
 
@@ -15,7 +15,7 @@ const modulesArr = temp_modules.map(({ filename, module, name }) => {
     name,
     filename,
     module,
-    handle: status ? module('') : module,
+    handle: status ? module(db) : module,
     status
   }
 });
