@@ -2,7 +2,7 @@
  * @Author: bucai
  * @Date: 2020-07-09 19:34:11
  * @LastEditors: bucai
- * @LastEditTime: 2020-07-10 16:03:11
+ * @LastEditTime: 2020-07-10 23:31:29
  * @Description: 
  */
 const { user, upstat, followings } = require('./source');
@@ -13,13 +13,14 @@ const queue = {
   next: []
 };
 const defaultConfig = {
-  mid: 84,
+  mid: 2216,
   following_index: 0,
   call_num: 0,
 };
 
 function saveConfig (config) {
   console.table([config]);
+
 }
 
 function delay (time) {
@@ -32,10 +33,17 @@ function delay (time) {
 
 async function app (config = defaultConfig) {
 
+  let followingsData;
+  try {
+    followingsData = await followings(config.mid, config.type);
+  } catch (error) {
+    console.log('error', error);
+    await delay(5 * 1000);
+    return app();
+  }
+
   defaultConfig.call_num++;
   defaultConfig.mid = config.mid;
-
-  const followingsData = await followings(config.mid, config.type);
 
   for (let i = config.following_index; i < followingsData.list.length; i++) {
     const item = followingsData.list[i];
@@ -53,7 +61,7 @@ async function app (config = defaultConfig) {
       defaultConfig.following_index = i;
       defaultConfig.current = item.mid;
       saveConfig(defaultConfig);
-      const time = (Math.random() * (100) + 20) | 0
+      const time = (Math.random() * (1200) + 200) | 0
       await delay(time);
     } catch (error) {
       console.log('error', error);
@@ -61,6 +69,7 @@ async function app (config = defaultConfig) {
         mid: item.mid,
         following_index: i
       });
+      await delay(30 * 1000);
     }
   }
   console.log('app end');
@@ -77,4 +86,6 @@ async function app (config = defaultConfig) {
   app(defaultConfig);
 }
 
-app();
+setTimeout(() => {
+  app();
+}, 20*60*1000);
