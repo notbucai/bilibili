@@ -2,7 +2,7 @@
  * @Author: bucai
  * @Date: 2020-07-10 09:49:55
  * @LastEditors: bucai
- * @LastEditTime: 2020-07-10 21:43:50
+ * @LastEditTime: 2020-07-13 17:33:41
  * @Description: 
  */
 const axios = require('axios');
@@ -10,7 +10,7 @@ const axios = require('axios');
 const tunnel = require('tunnel');
 
 const http = axios.create({
-  timeout:1000,
+  timeout:1500,
 });
 
 let proxys = [{"IP":"60.169.214.160:28803","ExpireTime":"2020-07-10 20:54:10","IpAddress":"辽宁省葫芦岛市 联通","ISP":"联通"}];

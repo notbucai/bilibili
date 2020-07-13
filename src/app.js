@@ -2,7 +2,7 @@
  * @Author: bucai
  * @Date: 2020-07-09 19:34:11
  * @LastEditors: bucai
- * @LastEditTime: 2020-07-10 23:31:29
+ * @LastEditTime: 2020-07-13 17:33:21
  * @Description: 
  */
 const { user, upstat, followings } = require('./source');
@@ -13,7 +13,7 @@ const queue = {
   next: []
 };
 const defaultConfig = {
-  mid: 2216,
+  mid: 122879,
   following_index: 0,
   call_num: 0,
 };
@@ -38,7 +38,7 @@ async function app (config = defaultConfig) {
     followingsData = await followings(config.mid, config.type);
   } catch (error) {
     console.log('error', error);
-    await delay(5 * 1000);
+    await delay(1 * 1000);
     return app();
   }
 
@@ -61,7 +61,7 @@ async function app (config = defaultConfig) {
       defaultConfig.following_index = i;
       defaultConfig.current = item.mid;
       saveConfig(defaultConfig);
-      const time = (Math.random() * (1200) + 200) | 0
+      const time = (Math.random() * (300) + 200) | 0
       await delay(time);
     } catch (error) {
       console.log('error', error);
@@ -69,7 +69,7 @@ async function app (config = defaultConfig) {
         mid: item.mid,
         following_index: i
       });
-      await delay(30 * 1000);
+      await delay(5 * 1000);
     }
   }
   console.log('app end');
@@ -79,7 +79,7 @@ async function app (config = defaultConfig) {
 
   defaultConfig.mid++;
   // followings / followers
-  config.type = next.official_verify.type === 1 ? 0 : 1;
+  config.type = 0;//next.official_verify.type === 1 ? 0 : 1;
   defaultConfig.following_index = 0;
 
   console.log('next', defaultConfig.mid, config.type);
@@ -88,4 +88,4 @@ async function app (config = defaultConfig) {
 
 setTimeout(() => {
   app();
-}, 20*60*1000);
+}, 0*60*1000);
